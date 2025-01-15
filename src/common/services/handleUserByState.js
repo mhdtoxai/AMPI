@@ -18,6 +18,8 @@ const handleEventSelect = require('../handlers/Onboarding/handleEventSelect');
 const handlePaymentMethodEvent = require('../handlers/Onboarding/handlePaymentMethodEvent');
 const handleTicketConfirmation = require('../handlers/Onboarding/handleTicketConfirmation');
 const handlePaymentPendientEvent = require('../handlers/Onboarding/handlePaymentPendientEvent');
+const handleEventPaymentCompleted = require('../handlers/Onboarding/handleEventPaymentCompleted');
+const handleEmailTicket = require('../handlers/Onboarding/handleEmailTicket');
 const handleConfirmAgend = require('../handlers/Onboarding/handleConfirmAgend');
 const handleFinalOnborading = require('../handlers/Onboarding/handleFinalOnborading');
 
@@ -91,6 +93,12 @@ const handleUserByState = async (senderId, receivedMessage) => {
         break;
       case 'pagopendienteevento':
         await handlePaymentPendientEvent(senderId, receivedMessage);
+        break;
+      case 'pagoevconfirmado':
+        await handleEventPaymentCompleted(senderId, receivedMessage);
+        break;
+      case 'correoboleto':
+        await handleEmailTicket(senderId, receivedMessage);
         break;
       case 'confirmaragenda':
         await handleConfirmAgend(senderId, receivedMessage);

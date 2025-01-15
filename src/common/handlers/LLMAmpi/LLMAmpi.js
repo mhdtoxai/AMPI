@@ -33,6 +33,8 @@ const LLMAmpi = async (senderId, receivedMessage) => {
     'metodopagoevento',
     'cantidadboletos',
     'pagopendienteevento',
+    'pagoevconfirmado',
+    'correoboleto',
     'confirmaragenda',
     'contactocard',
 
