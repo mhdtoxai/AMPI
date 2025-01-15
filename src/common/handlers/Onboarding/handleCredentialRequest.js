@@ -11,7 +11,7 @@ const handleCredentialRequest = async (senderId, receivedMessage) => {
 
     if (!messageLowerCase.includes('credencial')) {
         // Si el mensaje no contiene 'credencial', enviar un mensaje de error
-        const noCredentialMessage = 'No encontré una solicitud relacionada con la credencial. Por favor, verifica tu mensaje.';
+        const noCredentialMessage = 'No encontré una solicitud relacionada con la credencial';
         await sendMessage(senderId, noCredentialMessage);
         return;
     }
