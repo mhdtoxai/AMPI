@@ -17,13 +17,10 @@ const handleCredentialRequest = async (senderId, receivedMessage) => {
     }
 
     // Si el mensaje contiene 'credencial', enviar la credencial virtual
-    const credentialMessage = 'Claro Manuel, aquí tienes tu credencial virtual de AMPI';
+    const credentialMessage = 'Claro Manuel, aquí tienes tu credencial virtual de AMPI : https://wechamber.mx/member/credential/67a3d17e52b33750046012d3';
     // Enviar la imagen de la credencial
-    const imageUrl = 'https://firebasestorage.googleapis.com/v0/b/dtox-ai-a6f48.appspot.com/o/AMPI%20Credencial.JPG?alt=media&token=2b93ce85-f071-4de4-8ec2-d7c2250e4a44';
-    // Enviar mensaje preguntando si necesita más ayuda
- 
+
     await sendMessage(senderId, credentialMessage);
-    await sendImageMessage(senderId, imageUrl); // Envía la URL de la imagen como un mensaje
     await delay(2000);  // Espera 3 segundos
   
     // Enviar la tarjeta con la opción "No, gracias"

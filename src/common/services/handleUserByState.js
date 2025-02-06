@@ -1,3 +1,6 @@
+
+
+
 const userService = require('./userService');
 const sendMessageTarget = require('./Wp-Envio-Msj/sendMessageTarget');
 const sendMessage = require('./Wp-Envio-Msj/sendMessage');
@@ -16,12 +19,9 @@ const handleBenefitsConfirmation = require('../handlers/Onboarding/handleBenefit
 const handleEventsConfirmation = require('../handlers/Onboarding/handleEventsConfirmation');
 const handleEventSelect = require('../handlers/Onboarding/handleEventSelect');
 const handlePaymentMethodEvent = require('../handlers/Onboarding/handlePaymentMethodEvent');
-const handleTicketConfirmation = require('../handlers/Onboarding/handleTicketConfirmation');
 const handlePaymentPendientEvent = require('../handlers/Onboarding/handlePaymentPendientEvent');
 const handleEventPaymentCompleted = require('../handlers/Onboarding/handleEventPaymentCompleted');
-const handleEmailTicket = require('../handlers/Onboarding/handleEmailTicket');
 const handleConfirmAgend = require('../handlers/Onboarding/handleConfirmAgend');
-const handleFinalOnborading = require('../handlers/Onboarding/handleFinalOnborading');
 
 const handleUserByState = async (senderId, receivedMessage) => {
   const userDoc = await userService.getUser(senderId);
@@ -39,6 +39,7 @@ const handleUserByState = async (senderId, receivedMessage) => {
     // Enviar tarjeta con la pregunta modificada
     await sendMessageTarget(senderId, '¿Ya eres miembro de AMPI?', buttons);
   } else {
+
     const userData = userDoc.data();
     const estado = userData.estado;
 
@@ -85,28 +86,10 @@ const handleUserByState = async (senderId, receivedMessage) => {
       case 'eventoseleccion':
         await handleEventSelect(senderId, receivedMessage);
         break;
-      case 'metodopagoevento':
-        await handlePaymentMethodEvent(senderId, receivedMessage);
-        break;
-      case 'cantidadboletos':
-        await handleTicketConfirmation(senderId, receivedMessage);
-        break;
-      case 'pagopendienteevento':
-        await handlePaymentPendientEvent(senderId, receivedMessage);
-        break;
-      case 'pagoevconfirmado':
-        await handleEventPaymentCompleted(senderId, receivedMessage);
-        break;
-      case 'correoboleto':
-        await handleEmailTicket(senderId, receivedMessage);
-        break;
-      case 'confirmaragenda':
+      case 'confirmarevento':
         await handleConfirmAgend(senderId, receivedMessage);
         break;
-      case 'contactocard':
-        await handleFinalOnborading(senderId, receivedMessage);
-        break;
-
+ 
     }
   }
 };
