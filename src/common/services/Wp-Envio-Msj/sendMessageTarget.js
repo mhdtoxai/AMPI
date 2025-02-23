@@ -27,7 +27,7 @@ const sendMessageTarget = async (recipientId, messageText, buttons = []) => {
   };
 
   try {
-    const response = await axios.post(`https://graph.facebook.com/v21.0/499664693229576/messages`, requestBody, {
+    const response = await axios.post(`https://graph.facebook.com/v22.0/567129353151182/messages`, requestBody, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${GRAPH_API_TOKEN}`
