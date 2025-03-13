@@ -17,6 +17,13 @@ const LLMAmpi = async (senderId, receivedMessage) => {
   // Lista de estados excluidos
   const estadosExcluidos = [
     'bienvenida',
+    'no_miembro',
+    'confirmacionmiembro',
+    'no_member_name',
+    'no_member_phone',
+    'no_member_email',
+    'confirm_email',
+    'no_member_help',
     'solicitudcorreo',
     'confirmarsolicitudcodigo',
     'solicitudcodigo',

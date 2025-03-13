@@ -1,10 +1,19 @@
-
-
-
 const userService = require('./userService');
 const sendMessageTarget = require('./Wp-Envio-Msj/sendMessageTarget');
 const sendMessage = require('./Wp-Envio-Msj/sendMessage');
 const handlewelcome = require('../handlers/Onboarding/handlewelcome');
+const handleAfilation = require('../handlers/Onboarding/NoMembers/handleAfilation');
+const handleConfirmationMember = require('../handlers/Onboarding/NoMembers/handleConfirmationMember');
+const handleConfirmName = require('../handlers/Onboarding/NoMembers/handleConfirmName');
+const handlePhoneRequest = require('../handlers/Onboarding/NoMembers/handlePhoneRequest');
+const handleprocessEmailRequest = require('../handlers/Onboarding/NoMembers/handleprocessEmailRequest');
+const handleConfirmEmail = require('../handlers/Onboarding/NoMembers/handleConfirmEmail');
+const handleMemberHelp = require('../handlers/Onboarding/NoMembers/handleMemberHelp');
+
+
+
+
+
 const handleEmailRequest = require('../handlers/Onboarding/handleEmailRequest');
 const handleConfirmCode = require('../handlers/Onboarding/handleConfirmCode');
 const handleCodeValidation = require('../handlers/Onboarding/handleCodeValidation');
@@ -18,9 +27,7 @@ const handlePaymentThanksResponse = require('../handlers/Onboarding/handlePaymen
 const handleBenefitsConfirmation = require('../handlers/Onboarding/handleBenefitsConfirmation');
 const handleEventsConfirmation = require('../handlers/Onboarding/handleEventsConfirmation');
 const handleEventSelect = require('../handlers/Onboarding/handleEventSelect');
-const handlePaymentMethodEvent = require('../handlers/Onboarding/handlePaymentMethodEvent');
-const handlePaymentPendientEvent = require('../handlers/Onboarding/handlePaymentPendientEvent');
-const handleEventPaymentCompleted = require('../handlers/Onboarding/handleEventPaymentCompleted');
+
 const handleConfirmAgend = require('../handlers/Onboarding/handleConfirmAgend');
 
 const handleUserByState = async (senderId, receivedMessage) => {
@@ -30,14 +37,15 @@ const handleUserByState = async (senderId, receivedMessage) => {
     await userService.createUser(senderId);
 
     // Enviar mensaje normal antes de la tarjeta
-    await sendMessage(senderId, '¡Hola! Bienvenido al Smart Agent AI de AMPI, estoy aquí para ayudarte en todo lo relacionado con nuestra asociación.');
+    await sendMessage(senderId, 'Hola, soy el asistente inteligente de AMPI. Estoy aquí para ayudarte. ');
 
     const buttons = [
-      { id: 'si', title: 'Sí' }
+      { id: 'si', title: 'Sí' },
+      { id: 'no', title: 'No' }
     ];
 
     // Enviar tarjeta con la pregunta modificada
-    await sendMessageTarget(senderId, '¿Ya eres miembro de AMPI?', buttons);
+    await sendMessageTarget(senderId, '¿Para comenzar me puedes indicar si ya eres miembro AMPI?', buttons);
   } else {
 
     const userData = userDoc.data();
@@ -46,6 +54,30 @@ const handleUserByState = async (senderId, receivedMessage) => {
     switch (estado) {
       case 'bienvenida':
         await handlewelcome(senderId, receivedMessage);
+        break;
+      case 'no_miembro':
+        await handleAfilation(senderId, receivedMessage);
+        break;
+      case 'confirmacionmiembro':
+        await handleConfirmationMember(senderId, receivedMessage);
+        break;
+      case 'confirmacionmiembro':
+        await handleConfirmationMember(senderId, receivedMessage);
+        break;
+      case 'no_member_name':
+        await handleConfirmName(senderId, receivedMessage);
+        break;
+      case 'no_member_phone':
+        await handlePhoneRequest(senderId, receivedMessage);
+        break;
+      case 'no_member_email':
+        await handleprocessEmailRequest(senderId, receivedMessage);
+        break;
+      case 'confirm_email':
+        await handleConfirmEmail(senderId, receivedMessage);
+        break;
+      case 'no_member_help':
+        await handleMemberHelp(senderId, receivedMessage);
         break;
       case 'solicitudcorreo':
         await handleEmailRequest(senderId, receivedMessage);
@@ -89,7 +121,7 @@ const handleUserByState = async (senderId, receivedMessage) => {
       case 'confirmarevento':
         await handleConfirmAgend(senderId, receivedMessage);
         break;
- 
+
     }
   }
 };
